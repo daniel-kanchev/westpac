@@ -10,9 +10,6 @@ class WestSpider(scrapy.Spider):
     start_urls = ['https://www.westpac.com.au/news/']
 
     def parse(self, response):
-        with open('response.html', 'wb') as f:
-            f.write(response.body)
-
         links = response.xpath('//h2[@class="article-title"]/a/@href').getall()
         yield from response.follow_all(links, self.parse_for_new)
 
